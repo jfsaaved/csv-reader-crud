@@ -4,7 +4,7 @@
 	xmlns:th="http://www.thymeleaf.org"
 	layout:decorator="layouts/main">	
 <head>
-	<title>IDES Canada</title>
+	<title>SCENTROiD, IDES Canada</title>
 	<script type="text/javascript" src="/js/list.js"></script>
 </head>
 <body>
@@ -19,8 +19,8 @@
 				<p class="alert alert-warning" role="alert">Upload was a success, but we found duplicates in the file and/or in our database, the following data has been omitted:</p>
 			</div>
 		</div>
-		<div class="list-body">
-			<table class="table table-striped">
+		<div class="list-body" th:if="${duplicates.size() > 0}">
+			<table class="table table-striped" >
 				<thead>
 					<tr>
 						<th>GMT Date</th>
