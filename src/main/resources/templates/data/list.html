@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorator="layouts/main">	
+	<head>
+		<title>IDES Canada</title>
+		<script type="text/javascript" src="/js/list.js"></script>
+
+	</head>
+	<body>
+			
+		<div layout:fragment="content" >
+		<div class="container container-1">
+			<form class="form-inline">
+	 			<div class="form-group mx-sm-3">
+	 				<input id="dateRange" name="dateRange" type="text" th:placeholder="#{dateRange}" th:value="${dateRange}" class="form-control form-control-1" />
+	 				<input id="page" type="hidden" th:value="${entries.page}" />
+	 				<input id="sort" type="hidden" th:value="${sort}" />
+	  			</div>
+	  			<a onclick="filterByDateRange()" class="btn btn-primary">Filter By Date Range</a>
+	  			
+	  			<div class="form-group mx-sm-3" style="margin-left: 20px">
+	 				<input id="size" name="size" type="text" th:placeholder="#{size}" th:value="${size}" class="form-control form-control-1" />
+	  			</div>
+	  			<a onclick="changeDataPerPage()" class="btn btn-primary">Show Data Per Page</a>
+			</form>
+			
+			<div style="margin-top:10px " th:if="${message}" class="alert alert-success" role="alert">
+				<p th:text="${message}">success message</p>
+			</div>
+			
+			<p th:if="${entries.getNrOfElements() == 0}">
+				<div class="alert alert-warning" role="alert">No Entries Found.</div>
+			</p>
+		</div>
+		
+
+		<div class="list-body" >
+	
+			<table class="table table-striped">
+				<thead th:if="${entries.getNrOfElements() > 0}">
+					<tr>
+						<th style="" th:if="${sort == 'ByGmtDateFirst'}" onclick="sortByGmtDateLast()" class="bg-info text-white">GMT Date &#9660;</th> 
+						<th style="" th:if="${sort == 'ByGmtDateLast'}" onclick="sortByGmtDateFirst()" class="bg-info text-white">GMT Date &#9650;</th>
+						<th style="" th:if="${sort != 'ByGmtDateFirst' AND sort != 'ByGmtDateLast'}" onclick="sortByGmtDateFirst()">GMT Date</th>
+					
+						<th style=""  th:if="${sort == 'ByGmtTimeFirst'}" onclick="sortByGmtTimeLast()" class="bg-info text-white">GMT Time &#9660;</th> 
+						<th style=""  th:if="${sort == 'ByGmtTimeLast'}" onclick="sortByGmtTimeFirst()" class="bg-info text-white">GMT Time &#9650;</th>
+						<th style=""  th:if="${sort != 'ByGmtTimeFirst' AND sort != 'ByGmtTimeLast'}" onclick="sortByGmtTimeFirst()">GMT Time</th>
+						
+						<th style=""  th:if="${sort == 'ByGpsLatFirst'}" onclick="sortByGpsLatLast()" class="bg-info text-white">GPS Latitude &#9660;</th> 
+						<th style=""  th:if="${sort == 'ByGpsLatLast'}" onclick="sortByGpsLatFirst()" class="bg-info text-white">GPS Latitude &#9650;</th>
+						<th style=""  th:if="${sort != 'ByGpsLatFirst' AND sort != 'ByGpsLatLast'}" onclick="sortByGpsLatFirst()">GPS Latitude</th>
+						
+						<th style=""  th:if="${sort == 'ByGpsLongFirst'}" onclick="sortByGpsLongLast()" class="bg-info text-white">GPS Longitude &#9660;</th> 
+						<th style=""  th:if="${sort == 'ByGpsLongLast'}" onclick="sortByGpsLongFirst()" class="bg-info text-white">GPS Longitude &#9650;</th>
+						<th style=""  th:if="${sort != 'ByGpsLongFirst' AND sort != 'ByGpsLongLast'}" onclick="sortByGpsLongFirst()">GPS Longitude</th>
+						
+						<th style=""  th:if="${sort == 'ByVocsFirst'}" onclick="sortByVocsLast()" class="bg-info text-white">VOCs-LC-PPM PPM &#9660;</th> 
+						<th style=""  th:if="${sort == 'ByVocsLast'}" onclick="sortByVocsFirst()" class="bg-info text-white">VOCs-LC-PPM PPM &#9650;</th>
+						<th style=""  th:if="${sort != 'ByVocsFirst' AND sort != 'ByVocsLast'}" onclick="sortByVocsFirst()">VOCs-LC-PPM PPM</th>
+						
+						<th style=""  th:if="${sort == 'ByMs3First'}" onclick="sortByMs3Last()" class="bg-info text-white">MS3-LC-PPM PPM &#9660;</th> 
+						<th style=""  th:if="${sort == 'ByMs3Last'}" onclick="sortByMs3First()" class="bg-info text-white">MS3-LC-PPM PPM &#9650;</th>
+						<th style=""  th:if="${sort != 'ByMs3First' AND sort != 'ByMs3Last'}" onclick="sortByMs3First()">MS3-LC-PPM PPM</th>
+						
+						<th style=""  th:if="${sort == 'ByHydroSulfFirst'}" onclick="sortByHydroSulfLast()" class="bg-info text-white">Hydrogen Sulfide-LC-PPM PPM &#9660;</th> 
+						<th style=""  th:if="${sort == 'ByHydroSulfLast'}" onclick="sortByHydroSulfFirst()" class="bg-info text-white">Hydrogen Sulfide-LC-PPM PPM &#9650;</th>
+						<th style=""  th:if="${sort != 'ByHydroSulfFirst' AND sort != 'ByHydroSulfLast'}" onclick="sortByHydroSulfFirst()">Hydrogen Sulfide-LC-PPM PPM</th>
+						
+						<th style=""  th:if="${sort == 'ByMethaneFirst'}" onclick="sortByMethaneLast()" class="bg-info text-white">Methane-LC-PPM PPM &#9660;</th> 
+						<th style=""  th:if="${sort == 'ByMethaneLast'}" onclick="sortByMethaneFirst()" class="bg-info text-white">Methane-LC-PPM PPM &#9650;</th>
+						<th style=""  th:if="${sort != 'ByMethaneFirst' AND sort != 'ByMethaneLast'}" onclick="sortByMethaneFirst()">Methane-LC-PPM PPM</th>
+						
+						<th style=""  th:if="${sort == 'ByMs2First'}" onclick="sortByMs2Last()" class="bg-info text-white">MS2-LC-PPM PPM &#9660;</th> 
+						<th style=""  th:if="${sort == 'ByMs2Last'}" onclick="sortByMs2First()" class="bg-info text-white">MS2-LC-PPM PPM &#9650;</th>
+						<th style=""  th:if="${sort != 'ByMs2First' AND sort != 'ByMs2Last'}" onclick="sortByMs2First()">MS2-LC-PPM PPM</th>
+						
+						<th style=""  th:if="${sort == 'ByAmmoniaFirst'}" onclick="sortByAmmoniaLast()" class="bg-info text-white">Ammonia-LC-PPM PPM &#9660;</th> 
+						<th style=""  th:if="${sort == 'ByAmmoniaLast'}" onclick="sortByAmmoniaFirst()" class="bg-info text-white">Ammonia-LC-PPM PPM &#9650;</th>
+						<th style=""  th:if="${sort != 'ByAmmoniaFirst' AND sort != 'ByAmmoniaLast'}" onclick="sortByAmmoniaFirst()">Ammonia-LC-PPM PPM</th>
+						
+						<th style=""  th:if="${sort == 'ByWindSpdFirst'}" onclick="sortByWindSpdLast()" class="bg-info text-white">Wind Speed m/s &#9660;</th> 
+						<th style=""  th:if="${sort == 'ByWindSpdLast'}" onclick="sortByWindSpdFirst()" class="bg-info text-white">Wind Speed m/s &#9650;</th>
+						<th style=""  th:if="${sort != 'ByWindSpdFirst' AND sort != 'ByWindSpdLast'}" onclick="sortByWindSpdFirst()">Wind Speed m/s</th>
+						
+						<th style=""  th:if="${sort == 'ByWindDirFirst'}" onclick="sortByWindDirLast()" class="bg-info text-white">Wind Direction &#9660;</th> 
+						<th style=""  th:if="${sort == 'ByWindDirLast'}" onclick="sortByWindDirFirst()" class="bg-info text-white">Wind Direction &#9650;</th>
+						<th style=""  th:if="${sort != 'ByWindDirFirst' AND sort != 'ByWindDirLast'}" onclick="sortByWindDirFirst()">Wind Direction</th>
+						
+						<th style=""  th:if="${sort == 'ByRainFirst'}" onclick="sortByRainLast()" class="bg-info text-white">Daily Rain mm &#9660;</th> 
+						<th style=""  th:if="${sort == 'ByRainLast'}" onclick="sortByRainFirst()" class="bg-info text-white">Daily Rain mm &#9650;</th>
+						<th style=""  th:if="${sort != 'ByRainFirst' AND sort != 'ByRainLast'}" onclick="sortByRainFirst()">Daily Rain mm</th>
+						
+						<th style=""  th:if="${sort == 'BySolarSensorFirst'}" onclick="sortBySolarSensorLast()" class="bg-info text-white">Solar Sensor W/m2 &#9660;</th> 
+						<th style=""  th:if="${sort == 'BySolarSensorLast'}" onclick="sortBySolarSensorFirst()" class="bg-info text-white">Solar Sensor W/m2 &#9650;</th>
+						<th style=""  th:if="${sort != 'BySolarSensorFirst' AND sort != 'BySolarSensorLast'}" onclick="sortBySolarSensorFirst()">Solar Sensor W/m2</th>
+						
+						<th style=""  th:if="${sort == 'ByUvSensorFirst'}" onclick="sortByUvSensorLast()" class="bg-info text-white">UV Sensor UV Index &#9660;</th> 
+						<th style=""  th:if="${sort == 'ByUvSensorLast'}" onclick="sortByUvSensorFirst()" class="bg-info text-white">UV Sensor UV Index &#9650;</th>
+						<th style=""  th:if="${sort != 'ByUvSensorFirst' AND sort != 'ByUvSensorLast'}" onclick="sortByUvSensorFirst()">UV Sensor UV Index</th>
+						
+						<th style=""  th:if="${sort == 'ByBarometricFirst'}" onclick="sortByBarometricLast()" class="bg-info text-white">Barometric Pressure KPa &#9660;</th> 
+						<th style=""  th:if="${sort == 'ByBarometricLast'}" onclick="sortByBarometricFirst()" class="bg-info text-white">Barometric Pressure KPa &#9650;</th>
+						<th style=""  th:if="${sort != 'ByBarometricFirst' AND sort != 'ByBarometricLast'}" onclick="sortByBarometricFirst()">Barometric Pressure KPa</th>
+						
+						<th style=""  th:if="${sort == 'ByInternalTempFirst'}" onclick="sortByInternalTempLast()" class="bg-info text-white">Internal Temperature-C &#9660;</th> 
+						<th style=""  th:if="${sort == 'ByInternalTempLast'}" onclick="sortByInternalTempFirst()" class="bg-info text-white">Internal Temperature-C &#9650;</th>
+						<th style=""  th:if="${sort != 'ByInternalTempFirst' AND sort != 'ByInternalTempLast'}" onclick="sortByInternalTempFirst()">Internal Temperature-C</th>
+						
+						<th style=""  th:if="${sort == 'ByInternalHumidFirst'}" onclick="sortByInternalHumidLast()" class="bg-info text-white">Internal Humidity-% &#9660;</th> 
+						<th style=""  th:if="${sort == 'ByInternalHumidLast'}" onclick="sortByInternalHumidFirst()" class="bg-info text-white">Internal Humidity-% &#9650;</th>
+						<th style=""  th:if="${sort != 'ByInternalHumidFirst' AND sort != 'ByInternalHumidLast'}" onclick="sortByInternalHumidFirst()">Internal Humidity-%</th>
+						
+						<th style=""  th:if="${sort == 'ByExternalTempFirst'}" onclick="sortByExternalTempLast()" class="bg-info text-white">External Temperature-C &#9660;</th> 
+						<th style=""  th:if="${sort == 'ByExternalTempLast'}" onclick="sortByExternalTempFirst()" class="bg-info text-white">External Temperature-C &#9650;</th>
+						<th style=""  th:if="${sort != 'ByExternalTempFirst' AND sort != 'ByExternalTempLast'}" onclick="sortByExternalTempFirst()">External Temperature-C</th>
+						
+						<th style=""  th:if="${sort == 'ByExternalHumidFirst'}" onclick="sortByExternalHumidLast()" class="bg-info text-white">External Humidity-% &#9660;</th> 
+						<th style=""  th:if="${sort == 'ByExternalHumidLast'}" onclick="sortByExternalHumidFirst()" class="bg-info text-white">External Humidity-% &#9650;</th>
+						<th style=""  th:if="${sort != 'ByExternalHumidFirst' AND sort != 'ByExternalHumidLast'}" onclick="sortByExternalHumidFirst()">External Humidity-%</th>
+						
+						<th style=""  th:if="${sort == 'ByOdourUnitFirst'}" onclick="sortByOdourUnitLast()" class="bg-info text-white">Odour Unit &#9660;</th> 
+						<th style=""  th:if="${sort == 'ByOdourUnitLast'}" onclick="sortByOdourUnitFirst()" class="bg-info text-white">Odour Unit &#9650;</th>
+						<th style=""  th:if="${sort != 'ByOdourUnitFirst' AND sort != 'ByOdourUnitLast'}" onclick="sortByOdourUnitFirst()">Odour Unit</th>
+						
+						<th colspan="3"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="entry : ${entries.pageList}">
+						<td th:text="${entry.getGmtDate()}"></td>
+						<td th:text="${entry.getGmtTime()}"></td>
+						<td th:text="${entry.getGpsLatitude()}"></td>
+						<td th:text="${entry.getGpsLongitude()}"></td>
+						<td th:text="${entry.getVocsLcPpm()}"></td>
+						<td th:text="${entry.getMs3LcPpm()}"></td>
+						<td th:text="${entry.getHydrogenSulfideLcPpm()}"></td>
+						<td th:text="${entry.getMethaneLcPpm()}"></td>
+						<td th:text="${entry.getMs2LcPpm()}"></td>
+						<td th:text="${entry.getAmmoniaLcPpm()}"></td>
+						<td th:text="${entry.getWindSpeed()}"></td>
+						<td th:text="${entry.getWindDirection()}"></td>
+						<td th:text="${entry.getDailyRain()}"></td>
+						<td th:text="${entry.getSolarSensor()}"></td>
+						<td th:text="${entry.getUvSensor()}"></td>
+						<td th:text="${entry.getBarometricPressure()}"></td>
+						<td th:text="${entry.getInternalTemp()}"></td>
+						<td th:text="${entry.getInternalHummidity()}"></td>
+						<td th:text="${entry.getExternalTemp()}"></td>
+						<td th:text="${entry.getExternalHumidity()}"></td>
+						<td th:text="${entry.getOdourUnit()}"></td>
+						<td><a href="#" th:href="@{/data/} + ${entry.id}">View</a></td>
+						<td><a href="#" th:href="@{/data/edit/} + ${entry.id}">Edit</a></td>
+						<td><a href="#" th:href="@{/data/delete/} + ${entry.id}">Delete</a></td>
+					</tr>
+				</tbody>
+			</table>
+
+
+			<div align="center">
+				<ul class="pagination pagination-centered">
+			 		<li><a th:if="${!entries.isFirstPage()}" th:href="@{/data/(page=0,dateRange=${dateRange},sort=${sort},size=${size})}">&lt;&lt;</a></li>
+			 		<li><a th:if="${!entries.isFirstPage()}" th:href="@{/data/(page=${entries.page - 1},dateRange=${dateRange},sort=${sort},size=${size})}">&lt;</a></li>
+			 		<li th:if="${entries.getNrOfElements() > 0}" th:each="page : ${#numbers.sequence(0,entries.getPageCount() - 1)}" th:class="${page == entries.page} ? active : ''" >
+			 			<a th:href="@{/data/(page=${page},dateRange=${dateRange},sort=${sort},size=${size})}" th:text="${page + 1}">#</a>
+			 		</li>
+			 		<li><a th:if="${!entries.isLastPage()}" th:href="@{/data/(page=${entries.page + 1},dateRange=${dateRange},sort=${sort},size=${size})}">&gt;</a></li>
+			   	 <li><a th:if="${!entries.isLastPage()}" th:href="@{/data/(page=${entries.getPageCount() - 1},dateRange=${dateRange},sort=${sort},size=${size})}">&gt;&gt;</a></li>
+			 	</ul>
+			</div>
+
+		</div>
+		</div>
+
+		
+	</body>
+</html>

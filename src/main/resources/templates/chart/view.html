@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorator="layouts/main">	
+	<head>
+		<title>IDES Canada</title>
+		<script type="text/javascript" src="/js/list.js"></script>
+
+	</head>
+	<body>
+			
+		<div layout:fragment="content" class="container container-1">
+		
+			<form class="form-inline" th:action="@{/chart/}">
+				<div class="form-group mx-sm-3">
+	 				<input id="dateRange" name="dateRange" type="text" th:placeholder="#{dateRange}" th:value="${dateRange}" class="form-control form-control-1" />
+				  	<select class="form-control" id="yId" name="yVal" >
+					    <option th:selected="${option == optionSelected}" th:each="option : ${options}" th:value="${option}" th:text="${option}"></option>
+				   	</select>
+			   	 </div>
+				<a onclick="filterChartByDateRange()" class="btn btn-primary">Generate Chart Within Date Range</a>
+			</form>
+			
+			<canvas id="chart"></canvas>
+			
+			<script th:inline="javascript">
+				/*<![CDATA[*/
+						var dates = [[${dates}]];
+						var data = [[${data}]];
+						var label = [[${optionSelected}]];
+		
+						var ctx = document.getElementById('chart').getContext('2d');
+						var myChart = new Chart(ctx, {
+						  type: 'line',
+						  data: {
+						    labels: dates,
+						    datasets: [{
+						      data: data,
+						      label: label,
+						      backgroundColor: "rgba(153,255,51,0.4)"
+						    }]
+						  }
+						});
+				/*]]>*/
+			</script>
+		</div>
+
+		
+	</body>
+</html>

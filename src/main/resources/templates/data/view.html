@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorator="layouts/main">
+<head>
+	<title>IDS Canada</title>
+</head>
+<body>
+		
+	<div layout:fragment="content" class="container container-view">
+		<div style="margin-top:10px " th:if="${message}" class="alert alert-success" role="alert">
+				<p th:text="${message}"></p>
+		</div>
+		<form class="form-horizontal">
+			<div class="form-group">
+				<label class="col-sm-5 control-label">GMT Date/Time: </label>
+				<div class="col-md-5">
+					<p class="form-control-static" th:text="${#calendars.format(entry.getGmtDateTime(), 'MM/dd/yyyy HH:mm:ss ')}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+		    	<label class="col-sm-5 control-label">GPS Latitude</label>
+		    	<div class="col-md-5">
+		    		<p class="form-control-static" th:text="${entry.getGpsLatitude()}"></p>
+		    	</div>
+		    </div>
+			<div class="form-group">
+		    	<label class="col-sm-5 control-label">GPS Longitude</label>
+		    	<div class="col-md-5">
+		    		<p class="form-control-static" th:text="${entry.getGpsLongitude()}"></p>
+		    	</div>
+		    </div>
+			<div class="form-group">
+		    	<label class="col-sm-5 control-label">VOCs-LC-PPM PPM</label>
+		    	<div class="col-md-5">
+		    		<p class="form-control-static" th:text="${entry.getVocsLcPpm()}"></p>
+		    	</div>
+		    </div>
+			<div class="form-group">
+		    	<label class="col-sm-5 control-label">MS3-LC-PPM PPM</label>
+		    	<div class="col-md-5">
+		    		<p class="form-control-static" th:text="${entry.getMs3LcPpm()}"></p>
+		    	</div>
+		    </div>	
+		    <div class="form-group">
+		    	<label class="col-sm-5 control-label">Hydrogen Sulfide-LC-PPM PPM</label>
+		    	<div class="col-md-5">
+		    		<p class="form-control-static" th:text="${entry.getHydrogenSulfideLcPpm()}"></p>
+		    	</div>
+		    </div>
+		    <div class="form-group">	
+		    	<label class="col-sm-5 control-label">Methane-LC-PPM PPM</label>
+		    	<div class="col-md-5">
+		    		<p class="form-control-static" th:text="${entry.getMethaneLcPpm()}"></p>
+		    	</div>
+		    </div>
+		    <div class="form-group">
+		    	<label class="col-sm-5 control-label">MS2-LC-PPM PPM</label>
+		    	<div class="col-md-5">
+		    		<p class="form-control-static" th:text="${entry.getMs2LcPpm()}"></p>
+		    	</div>
+		  	</div>
+		    <div class="form-group">
+		    	<label class="col-sm-5 control-label">Ammonia-LC-PPM PPM</label>
+		    	<div class="col-md-5">
+		    		<p class="form-control-static" th:text="${entry.getAmmoniaLcPpm()}"></p>
+		    	</div>
+		  	</div>
+		    <div class="form-group">
+		    	<label class="col-sm-5 control-label">Wind Speed m/s</label>
+		    	<div class="col-md-5">
+		    		<p class="form-control-static" th:text="${entry.getWindSpeed()}"></p>
+		    	</div>
+		  	</div>
+		    <div class="form-group">
+		    	<label class="col-sm-5 control-label">Wind Direction</label>
+		    	<div class="col-md-5">
+		    		<p class="form-control-static" th:text="${entry.getWindDirection()}"></p>
+		    	</div>
+		  	</div>
+		    <div class="form-group">
+		    	<label class="col-sm-5 control-label">Daily Rain mm</label>
+		    	<div class="col-md-5">
+		    		<p class="form-control-static" th:text="${entry.getDailyRain()}"></p>
+		    	</div>
+		  	</div>
+		    <div class="form-group">
+		    	<label class="col-sm-5 control-label">Solar Sensor W/m2</label>
+		    	<div class="col-md-5">
+		    		<p class="form-control-static" th:text="${entry.getSolarSensor()}"></p>
+		    	</div>
+		  	</div>
+		    <div class="form-group">
+		    	<label class="col-sm-5 control-label">UV Sensor UV index</label>
+		    	<div class="col-md-5">
+		    		<p class="form-control-static" th:text="${entry.getUvSensor()}"></p>
+		    	</div>
+		  	</div>
+		    <div class="form-group">
+		    	<label class="col-sm-5 control-label">Barometric Pressure KPa</label>
+		    	<div class="col-md-5">
+		    		<p class="form-control-static" th:text="${entry.getBarometricPressure()}"></p>
+		    	</div>
+		  	</div>
+		    <div class="form-group">
+		    	<label class="col-sm-5 control-label">Internal Temperature-C</label>
+		    	<div class="col-md-5">
+		    		<p class="form-control-static" th:text="${entry.getInternalTemp()}"></p>
+		    	</div>
+		  	</div>
+		    <div class="form-group">
+		    	<label class="col-sm-5 control-label">Internal Humidity-%</label>
+		    	<div class="col-md-5">
+		    		<p class="form-control-static" th:text="${entry.getInternalHummidity()}"></p>
+		    	</div>
+		  	</div>
+		    <div class="form-group">
+		    	<label class="col-sm-5 control-label">External Temperature-C</label>
+		    	<div class="col-md-5">
+		    		<p class="form-control-static" th:text="${entry.getExternalTemp()}"></p>
+		    	</div>
+		  	</div>
+		  	<div class="form-group">
+		    	<label class="col-sm-5 control-label">External Humidity-C</label>
+		    	<div class="col-md-5">
+		    		<p class="form-control-static" th:text="${entry.getExternalHumidity()}"></p>
+		    	</div>
+		  	</div>
+		  	<div class="form-group">
+		    	<label class="col-sm-5 control-label">Odour Unit</label>
+		    	<div class="col-md-5">
+		    		<p class="form-control-static" th:text="${entry.getOdourUnit()}"></p>
+		    	</div>
+		  	</div>
+		</form>
+		
+		<a th:href="@{/data/}">Back To Data List</a>
+		
+	</div>
+		
+</body>
+</html>

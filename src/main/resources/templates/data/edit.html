@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorator="layouts/main">
+<head>
+	<title>IDS Canada</title>
+</head>
+<body>
+
+	<div layout:fragment="content" class="container container-view">
+		<div style="margin-top:10px " th:if="${message}" class="alert alert-warning" role="alert">
+				<p th:text="${message}"></p>
+		</div>
+		<form class="form-horizontal" th:object="${dataEntry}" th:action="@{/data/save}" method="post">
+		
+			<input type="hidden" th:field="*{id}"/>
+			<input type="datetime" style="visibility:hidden;" th:field="*{dateUploaded}"/>
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('gmtDateTime')}? 'has-error'">
+				<label class="col-sm-5 control-label">GMT Date/Time</label>
+				<div class="col-md-5">
+					<input type="datetime" class="form-control" th:field="*{gmtDateTime}"/>
+					<span th:if="${#fields.hasErrors('gmtDateTime')}" th:errors="*{gmtDateTime}" th:class="help-block"></span>
+				</div>
+			</div>
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('gpsLatitude')}? 'has-error'">
+				<label class="col-sm-5 control-label">GPS Latitude</label>
+				<div class="col-md-5">
+					<input type="text" class="form-control" th:field="*{gpsLatitude}"/>
+					<span th:if="${#fields.hasErrors('gpsLatitude')}" th:errors="*{gpsLatitude}" th:class="help-block"></span>
+				</div>
+			</div>
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('gpsLongitude')}? 'has-error'">
+				<label class="col-sm-5 control-label">GPS Longitude</label>
+				<div class="col-md-5">
+					<input type="text" class="form-control" th:field="*{gpsLongitude}"/>
+					<span th:if="${#fields.hasErrors('gpsLongitude')}" th:errors="*{gpsLongitude}" th:class="help-block"></span>
+				</div>
+			</div>
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('vocsLcPpm')}? 'has-error'">
+				<label class="col-sm-5 control-label">VOCs-LC-PPM PPM</label>
+				<div class="col-md-5">
+					<input type="text" class="form-control" th:field="*{vocsLcPpm}"/>
+					<span th:if="${#fields.hasErrors('vocsLcPpm')}" th:errors="*{vocsLcPpm}" th:class="help-block"></span>
+				</div>
+			</div>
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('ms3LcPpm')}? 'has-error'">
+				<label class="col-sm-5 control-label">MS3-LC-PPM PPM</label>
+				<div class="col-md-5">
+					<input type="text" class="form-control" th:field="*{ms3LcPpm}"/>
+					<span th:if="${#fields.hasErrors('ms3LcPpm')}" th:errors="*{ms3LcPpm}" th:class="help-block"></span>
+				</div>
+			</div>
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('hydrogenSulfideLcPpm')}? 'has-error'">
+				<label class="col-sm-5 control-label">Hydrogen Sulfide-LC-PPM PPM</label>
+				<div class="col-md-5">
+					<input type="text" class="form-control" th:field="*{hydrogenSulfideLcPpm}"/>
+					<span th:if="${#fields.hasErrors('hydrogenSulfideLcPpm')}" th:errors="*{hydrogenSulfideLcPpm}" th:class="help-block"></span>
+				</div>
+			</div>
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('methaneLcPpm')}? 'has-error'">
+				<label class="col-sm-5 control-label">Methane-LC-PPM PPM</label>
+				<div class="col-md-5">
+					<input type="text" class="form-control" th:field="*{methaneLcPpm}"/>
+					<span th:if="${#fields.hasErrors('methaneLcPpm')}" th:errors="*{methaneLcPpm}" th:class="help-block"></span>
+				</div>
+			</div>
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('ms2LcPpm')}? 'has-error'">
+				<label class="col-sm-5 control-label">MS2-LC-PPM PPM</label>
+				<div class="col-md-5">
+					<input type="text" class="form-control" th:field="*{ms2LcPpm}"/>
+					<span th:if="${#fields.hasErrors('ms2LcPpm')}" th:errors="*{ms2LcPpm}" th:class="help-block"></span>
+				</div>
+			</div>
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('ammoniaLcPpm')}? 'has-error'">
+				<label class="col-sm-5 control-label">Ammonia-LC-PPM PPM</label>
+				<div class="col-md-5">
+					<input type="text" class="form-control" th:field="*{ammoniaLcPpm}"/>
+					<span th:if="${#fields.hasErrors('ammoniaLcPpm')}" th:errors="*{ammoniaLcPpm}" th:class="help-block"></span>
+				</div>
+			</div>
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('windSpeed')}? 'has-error'">
+				<label class="col-sm-5 control-label">Wind Speed m/s</label>
+				<div class="col-md-5">
+					<input type="text" class="form-control" th:field="*{windSpeed}"/>
+					<span th:if="${#fields.hasErrors('windSpeed')}" th:errors="*{windSpeed}" th:class="help-block"></span>
+				</div>
+			</div>
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('windDirection')}? 'has-error'">
+				<label class="col-sm-5 control-label">Wind Direction</label>
+				<div class="col-md-5">
+					<input type="text" class="form-control" th:field="*{windDirection}"/>
+					<span th:if="${#fields.hasErrors('windDirection')}" th:errors="*{windDirection}" th:class="help-block"></span>
+				</div>
+			</div>
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('dailyRain')}? 'has-error'">
+				<label class="col-sm-5 control-label">Daily Rain mm</label>
+				<div class="col-md-5">
+					<input type="text" class="form-control" th:field="*{dailyRain}"/>
+					<span th:if="${#fields.hasErrors('dailyRain')}" th:errors="*{dailyRain}" th:class="help-block"></span>
+				</div>
+			</div>
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('solarSensor')}? 'has-error'">
+				<label class="col-sm-5 control-label">Solar Sensor W/m2</label>
+				<div class="col-md-5">
+					<input type="text" class="form-control" th:field="*{solarSensor}"/>
+					<span th:if="${#fields.hasErrors('solarSensor')}" th:errors="*{solarSensor}" th:class="help-block"></span>
+				</div>
+			</div>
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('uvSensor')}? 'has-error'">
+				<label class="col-sm-5 control-label">UV Sensor UV index</label>
+				<div class="col-md-5">
+					<input type="text" class="form-control" th:field="*{uvSensor}"/>
+					<span th:if="${#fields.hasErrors('uvSensor')}" th:errors="*{uvSensor}" th:class="help-block"></span>
+				</div>
+			</div>
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('barometricPressure')}? 'has-error'">
+				<label class="col-sm-5 control-label">Barometric Pressure KPa</label>
+				<div class="col-md-5">
+					<input type="text" class="form-control" th:field="*{barometricPressure}"/>
+					<span th:if="${#fields.hasErrors('barometricPressure')}" th:errors="*{barometricPressure}" th:class="help-block"></span>
+				</div>
+			</div>
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('internalTemp')}? 'has-error'">
+				<label class="col-sm-5 control-label">Internal Temperature-C</label>
+				<div class="col-md-5">
+					<input type="text" class="form-control" th:field="*{internalTemp}"/>
+					<span th:if="${#fields.hasErrors('internalTemp')}" th:errors="*{internalTemp}" th:class="help-block"></span>
+				</div>
+			</div>
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('internalHummidity')}? 'has-error'">
+				<label class="col-sm-5 control-label">Internal Humidity-%</label>
+				<div class="col-md-5">
+					<input type="text" class="form-control" th:field="*{internalHummidity}"/>
+					<span th:if="${#fields.hasErrors('internalHummidity')}" th:errors="*{internalHummidity}" th:class="help-block"></span>
+				</div>
+			</div>
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('externalTemp')}? 'has-error'">
+				<label class="col-sm-5 control-label">External Temperature-C</label>
+				<div class="col-md-5">
+					<input type="text" class="form-control" th:field="*{externalTemp}"/>
+					<span th:if="${#fields.hasErrors('externalTemp')}" th:errors="*{externalTemp}" th:class="help-block"></span>
+				</div>
+			</div>
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('externalHumidity')}? 'has-error'">
+				<label class="col-sm-5 control-label">External Humidity-%</label>
+				<div class="col-md-5">
+					<input type="text" class="form-control" th:field="*{externalHumidity}"/>
+					<span th:if="${#fields.hasErrors('externalHumidity')}" th:errors="*{externalHumidity}" th:class="help-block"></span>
+				</div>
+			</div>
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('odourUnit')}? 'has-error'">
+				<label class="col-sm-5 control-label">Odour Unit</label>
+				<div class="col-md-5">
+					<input type="text" class="form-control" th:field="*{odourUnit}"/>
+					<span th:if="${#fields.hasErrors('odourUnit')}" th:errors="*{odourUnit}" th:class="help-block"></span>
+				</div>
+			</div>
+			<button type="submit" class="btn btn-default">Submit</button>
+		</form>
+	
+	</div>
+</body>
+</html>

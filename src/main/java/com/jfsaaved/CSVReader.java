@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringCrudUdemyApplication {
+public class CSVReader {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringCrudUdemyApplication.class, args);
+		SpringApplication.run(CSVReader.class, args);
 	}
 }

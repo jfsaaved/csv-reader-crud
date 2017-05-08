@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorator="layouts/main">	
+<head>
+	<title>IDES Canada</title>
+</head>
+<body>
+		
+	<div layout:fragment="content">
+		<div class="container-upload">
+				<p>Any duplicated data within the file (or found in the database) are going to be ignored.</p>
+			    <form th:action="@{/upload/save}" method="post" id="target" enctype="multipart/form-data">
+			       <input type="file" name="file" id="file" class="filestyle" data-buttonName="btn-primary" />
+			    </form>
+			    <div id="loader" class="loader" ></div>
+			    <p id="loader-text" style="text-align: center; visibility: hidden; margin-top: 20px">Please wait...</p>
+	    </div>
+	    
+	    <script>
+		    $('#file').change(function() {
+				  $('#loader').css('visibility', 'visible');
+				  $('#loader-text').css('visibility', 'visible');
+		    	  $('#target').submit();
+		    	  $('#target').css('visibility','hidden');
+		    });
+	    </script>
+
+	</div>
+		
+</body>
+</html>

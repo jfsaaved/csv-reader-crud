@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorator="layouts/main">	
+<head>
+	<title>IDES Canada</title>
+	<script type="text/javascript" src="/js/list.js"></script>
+</head>
+<body>
+		
+	<div layout:fragment="content">
+
+		<div class="container container-1">
+			<div th:if="${duplicates.size() == 0}">
+				<p class="alert alert-success" role="alert">Upload was a success with no errors!</p>
+			</div>
+			<div th:if="${duplicates.size() > 0}">
+				<p class="alert alert-warning" role="alert">Upload was a success, but we found duplicates in the file and/or in our database, the following data has been omitted:</p>
+			</div>
+		</div>
+		<div class="list-body">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>GMT Date</th>
+						<th>GMT Time</th>
+						<th>GPS Latitude</th>
+						<th>GPS Longitude</th>
+						<th>VOCs-LC-PPM PPM</th>
+						<th>MS3-LC-PPM PPM</th>
+						<th>Hydrogen Sulfide-LC-PPM PPM</th>
+						<th>Methane-LC-PPM PPM</th>
+						<th>MS2-LC-PPM PPM</th>
+						<th>Ammonia-LC-PPM PPM</th>
+						<th>Wind Speed m/s</th>
+						<th>Wind Direction</th>
+						<th>Daily Rain mm</th>
+						<th>Solar Sensor W/m2</th>
+						<th>UV Sensor UV index</th>
+						<th>Barometric Pressure KPa</th>
+						<th>Internal Temperature-C</th>
+						<th>Internal Humidity-%</th>
+						<th>External Temperature-C</th>
+						<th>External Humidity-%</th>
+						<th>Odour Unit</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="duplicate : ${duplicates}">
+						<td th:text="${duplicate.getGmtDate()}"></td>
+						<td th:text="${duplicate.getGmtTime()}"></td>
+						<td th:text="${duplicate.getGpsLatitude()}"></td>
+						<td th:text="${duplicate.getGpsLongitude()}"></td>
+						<td th:text="${duplicate.getVocsLcPpm()}"></td>
+						<td th:text="${duplicate.getMs3LcPpm()}"></td>
+						<td th:text="${duplicate.getHydrogenSulfideLcPpm()}"></td>
+						<td th:text="${duplicate.getMethaneLcPpm()}"></td>
+						<td th:text="${duplicate.getMs2LcPpm()}"></td>
+						<td th:text="${duplicate.getAmmoniaLcPpm()}"></td>
+						<td th:text="${duplicate.getWindSpeed()}"></td>
+						<td th:text="${duplicate.getWindDirection()}"></td>
+						<td th:text="${duplicate.getDailyRain()}"></td>
+						<td th:text="${duplicate.getSolarSensor()}"></td>
+						<td th:text="${duplicate.getUvSensor()}"></td>
+						<td th:text="${duplicate.getBarometricPressure()}"></td>
+						<td th:text="${duplicate.getInternalTemp()}"></td>
+						<td th:text="${duplicate.getInternalHummidity()}"></td>
+						<td th:text="${duplicate.getExternalTemp()}"></td>
+						<td th:text="${duplicate.getExternalHumidity()}"></td>
+						<td th:text="${duplicate.getOdourUnit()}"></td>
+					</tr>
+				</tbody>
+			</table>
+	</div>
+		
+	</div>
+</body>
+</html>
